@@ -27,17 +27,26 @@ def user_input():
     else:
         sys.exit(1)
 
+		
+def get_size(start_path = tempfolder):
+    total_size = 0
+    for dirpath, dirnames, filenames in os.walk(start_path):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            total_size += os.path.getsize(fp)
+    return total_size
+
 
 def delete_the_files_verbose():
 	# Calculate and display size before
-	size_before = os.stat(tempfolder).st_size
+	size_before = get_size(tempfolder)
 	print "Size before removal: %s " % (size_before)
 	
 	# delete the files
 	shutil.rmtree(tempfolder, ignore_errors=True)
-	del(os); import os	
+	reload(os)
 	# Calculate and display size after
-	size_after = os.stat(tempfolder).st_size
+	size_after = get_size(tempfolder)
 	deleted_stuff = size_before - size_after
 	print '%s removed. Before: %s | After: %s' % (deleted_stuff, size_before, size_after)
 	
