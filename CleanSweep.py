@@ -40,20 +40,21 @@ def get_size(start_path = tempfolder):
 def delete_the_files_verbose():
 	# Calculate and display size before
 	size_before = get_size(tempfolder)
-	print "Size before removal: %s " % (size_before)
 	
 	# delete the files
 	shutil.rmtree(tempfolder, ignore_errors=True)
 	reload(os)
+
 	# Calculate and display size after
 	size_after = get_size(tempfolder)
 	deleted_stuff = size_before - size_after
-	print '%s removed. Before: %s | After: %s' % (deleted_stuff, size_before, size_after)
+	print "\n======================================================================"
+	print "\nBefore: %s bytes.\nAfter: %s bytes.\nRemoved: %s bytes\n" % (size_before, size_after, deleted_stuff)
 	
 	try:
 		#Let user know which files can't be deleted if verbose mode is on.
 		print "======================================================================"
-		print "INFO: Could not delete: %s because the files are in use!" % os.listdir(tempfolder)
+		print "INFO: Could not delete these files because they are in use!", os.listdir(tempfolder)
 		print "======================================================================"
 		done = raw_input("\nOperation complete. Press enter to exit: ")
 		if len(done) > 0:
