@@ -29,30 +29,18 @@ def user_input():
 
 
 def delete_the_files_verbose():
-	#Get the file stats of the tempfolder.
-	filestats = os.stat(tempfolder)
+	# Calculate and display size before
+	size_before = os.stat(tempfolder).st_size
+	print "Size before removal: %s " % (size_before)
 	
-	#Tell user the size of the temp folder before removal.
-	print "Size before removal: %s " % (filestats.st_size)
-	
-	#Bind it to a var for comparison later.
-	oldsize = (filestats.st_size)
-	
-	#Delete the files.
+	# delete the files
 	shutil.rmtree(tempfolder, ignore_errors=True)
+	del(os); import os	
+	# Calculate and display size after
+	size_after = os.stat(tempfolder).st_size
+	deleted_stuff = size_before - size_after
+	print '%s removed. Before: %s | After: %s' % (deleted_stuff, size_before, size_after)
 	
-	#Get the new size of the tempfolder.
-	filestats = os.stat(tempfolder)
-	
-	#Bind it to another variable.
-	newsize = (filestats.st_size)
-	
-	#Now calculate the difference between old and new sizes and bind result to "currentsize" var.
-	currentsize = oldsize - newsize
-	
-	#Tell the user how much space they saved.
-	print "\nSize after removal: %s " % (newsize)
-	print "You saved %s bytes of data.\n" % (currentsize)
 	try:
 		#Let user know which files can't be deleted if verbose mode is on.
 		print "======================================================================"
