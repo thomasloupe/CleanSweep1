@@ -28,7 +28,7 @@ def user_input():
         sys.exit(1)
 
 
-def delete_the_files():
+def delete_the_files_verbose():
 	#Get the file stats of the tempfolder.
 	filestats = os.stat(tempfolder)
 	
@@ -67,7 +67,7 @@ def delete_the_files():
 	time.sleep(1)
 
 
-def delete_the_files1():
+def delete_the_files_quick():
     shutil.rmtree(tempfolder, ignore_errors=True)
     try:
 		done = raw_input("\nOperation complete. Press enter to exit: ")
@@ -84,7 +84,7 @@ if verbose == True:
         print "Now removing temp files at: %s." % (tempfolder)
 	#Print file list to console because verbose mode is enabled.
 	print os.listdir(tempfolder)
-	delete_the_files()
+	delete_the_files_verbose()
 	#Print message if user declines to continue then exit.
     elif user_input() == False:
         print "Operation aborted. No files have been modified."
@@ -98,4 +98,4 @@ if verbose == True:
             
 
 elif verbose == False:
-    delete_the_files1()
+    delete_the_files_quick()
