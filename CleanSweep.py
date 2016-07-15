@@ -46,7 +46,7 @@ def delete_the_files_verbose():
 	shutil.rmtree(tempfolder, ignore_errors=True)
 	print "\n======================================================================"
 	print "\nDone.\nNow running cleanmgr task. Please wait..."
-	subprocess.check_call(['c:\windows\system32\cleanmgr.exe', '/autoclean /d C:'])
+	subprocess.check_call(['c:\windows\system32\cleanmgr.exe', '/autoclean /s /d C:'])
 	print "Cleanmgr task has finished."
 	reload(os)
 
