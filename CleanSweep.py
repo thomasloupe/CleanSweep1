@@ -5,6 +5,7 @@ import time
 import argparse
 import logging
 import os
+import subprocess
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--verbose", help="Provides additional logging", action="store_true")
@@ -43,6 +44,10 @@ def delete_the_files_verbose():
 	
 	# delete the files
 	shutil.rmtree(tempfolder, ignore_errors=True)
+	print "\n======================================================================"
+	print "\nDone.\nNow running cleanmgr task. Please wait..."
+	subprocess.check_call(['c:\windows\system32\cleanmgr.exe', '/autoclean /d C:'])
+	print "Cleanmgr task has finished."
 	reload(os)
 
 	# Calculate and display size after
