@@ -7,6 +7,7 @@ import logging
 import os
 import subprocess
 
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--verbose", help="Provides additional logging", action="store_true")
 args = parser.parse_args()
@@ -39,18 +40,19 @@ def get_size(start_path = tempfolder):
 
 
 def delete_the_files_verbose():
-	# Calculate and display size before
+	#Calculate and display size before.
 	size_before = get_size(tempfolder)
 	
-	# delete the files
+	
+	#Delete the files.
 	shutil.rmtree(tempfolder, ignore_errors=True)
 	print "\n======================================================================"
 	print "\nDone.\nNow running cleanmgr task. Please wait..."
 	subprocess.check_call(['c:\windows\system32\cleanmgr.exe', '/autoclean /s /d C:'])
 	print "Cleanmgr task has finished."
-	reload(os)
+	
 
-	# Calculate and display size after
+	# Calculate and display size after.
 	size_after = get_size(tempfolder)
 	deleted_stuff = size_before - size_after
 	print "\n======================================================================"
@@ -65,20 +67,21 @@ def delete_the_files_verbose():
 		if len(done) > 0:
 			sys.exit(0)
 	except: 
-		#Suppress the exception when a user hits enter
+		#Suppress the exception when a user hits enter.
 		sys.exit(0)
 	time.sleep(1)
 
 
 def delete_the_files_quick():
-    shutil.rmtree(tempfolder, ignore_errors=True)
-    try:
+	shutil.rmtree(tempfolder, ignore_errors=True)
+	subprocess.check_call(['c:\windows\system32\cleanmgr.exe', '/autoclean /s /d C:'])
+	try:
 		done = raw_input("\nOperation complete. Press enter to exit: ")
 		if len(done) > 0:
 			sys.exit(0)
-    except: 
-        #Suppress the exception when a user hits enter
-        sys.exit(0)
+	except: 
+		#Suppress the exception when a user hits enter.
+		sys.exit(0)
 	time.sleep(1)  	
 
 
@@ -96,7 +99,7 @@ if verbose == True:
             done = raw_input("Press enter to exit")
             sys.exit(0)
         except SyntaxError:
-        #Suppress the exception when a user hits enter		
+        #Suppress the exception when a user hits enter.
             sys.exit(0)
             
 
