@@ -73,6 +73,7 @@ def delete_the_files_verbose():
 
 
 def delete_the_files_quick():
+	print "Please wait. Operation in progress."
 	shutil.rmtree(tempfolder, ignore_errors=True)
 	subprocess.check_call(['c:\windows\system32\cleanmgr.exe', '/autoclean /s /d C:'])
 	try:
