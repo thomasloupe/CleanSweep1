@@ -9,8 +9,8 @@ import subprocess
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument
-("-v", "--verbose", help="Provides additional logging", action="store_true")
+parser.add_argument("-v", "--verbose", help="Provides additional logging",
+                    action="store_true")
 args = parser.parse_args()
 
 
@@ -47,26 +47,27 @@ def delete_the_files_verbose():
     # Delete the files.
     shutil.rmtree(tempfolder, ignore_errors=True)
     print "\nDone.\nNow running cleanmgr task. Please wait..."
-    subprocess.check_call
-    (['c:\windows\system32\cleanmgr.exe', '/autoclean /s /d C:'])
+    subprocess.check_call([
+                         'c:\windows\system32\cleanmgr.exe',
+                         '/autoclean /s /d C:'])
     print "Cleanmgr task has finished."
 
     # Calculate and display size after.
     size_after = get_size(tempfolder)
     deleted_stuff = size_before - size_after
-    print "\nBefore: %s bytes.\nAfter: %s bytes.\nRemoved: %s bytes\n "
-    % (size_before, size_after, deleted_stuff)
+    print "\nBefore: %s bytes.\nAfter: %s bytes.\nRemoved: %s bytes\n " % (
+          size_before, size_after, deleted_stuff)
     try:
         # Let user know which files can't be deleted if verbose mode is on.
-        print "INFO: Could not delete these files because they are in use!"
-        , os.listdir(tempfolder)
+        print "INFO: Could not delete these files because they are in use!",
+        os.listdir(tempfolder)
         done = raw_input("\nOperation complete. Press enter to exit: ")
         if len(done) > 0:
             sys.exit(0)
-        except:
-            # Suppress the exception when a user hits enter.
-            sys.exit(0)
-        time.sleep(1)
+    except:
+        # Suppress the exception when a user hits enter.
+        sys.exit(0)
+    time.sleep(1)
 
 
 def delete_the_files_quick():
