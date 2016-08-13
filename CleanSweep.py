@@ -88,9 +88,9 @@ def delete_the_files_quick():
 if verbose is True:
     if user_input() == True:
         print "Now removing temp files at: %s." % (tempfolder)
-    # Print file list to console because verbose mode is enabled.
-    print os.listdir(tempfolder)
-    delete_the_files_verbose()
+        # Print file list to console because verbose mode is enabled.
+        print os.listdir(tempfolder)
+        delete_the_files_verbose()
     # Print message if user declines to continue then exit.
     elif user_input() == False:
         print "Operation aborted. No files have been modified."
