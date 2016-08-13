@@ -9,23 +9,23 @@ import subprocess
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-v", "--verbose", help="Provides additional logging",
-                    action="store_true")
+parser.add_argument('-v', '--verbose', help='Provides additional logging',
+                    action='store_true')
 args = parser.parse_args()
 
 
-verbose = getattr(args, "verbose", False)
+verbose = getattr(args, 'verbose', False)
 username = getpass.getuser()
 tempfolder = 'C:/Users/%s/AppData/Local/Temp' % (username)
 
 
 def user_input():
-    print "This program will quickly remove junk-files from your computer."
-    print "Would you like to proceed?"
-    prompt = raw_input("Y/N: ")
-    if prompt.lower() == "y":
+    print 'This program will quickly remove junk-files from your computer.'
+    print 'Would you like to proceed?'
+    prompt = raw_input('Y/N: ')
+    if prompt.lower() == 'y':
         return True
-    elif prompt.lower() == "n":
+    elif prompt.lower() == 'n':
         return False
     else:
         sys.exit(1)
@@ -46,22 +46,22 @@ def delete_the_files_verbose():
 
     # Delete the files.
     shutil.rmtree(tempfolder, ignore_errors=True)
-    print "\nDone.\nNow running cleanmgr task. Please wait..."
+    print '\nDone.\nNow running cleanmgr task. Please wait...'
     subprocess.check_call([
                          'c:\windows\system32\cleanmgr.exe',
                          '/autoclean /s /d C:'])
-    print "Cleanmgr task has finished."
+    print 'Cleanmgr task has finished.'
 
     # Calculate and display size after.
     size_after = get_size(tempfolder)
     deleted_stuff = size_before - size_after
-    print "\nBefore: %s bytes.\nAfter: %s bytes.\nRemoved: %s bytes\n " % (
+    print '\nBefore: %s bytes.\nAfter: %s bytes.\nRemoved: %s bytes\n ' % (
           size_before, size_after, deleted_stuff)
     try:
         # Let user know which files can't be deleted if verbose mode is on.
-        print "INFO: Could not delete these files because they are in use!",
+        print 'INFO: Could not delete these files because they are in use!',
         os.listdir(tempfolder)
-        done = raw_input("\nOperation complete. Press enter to exit: ")
+        done = raw_input('\nOperation complete. Press enter to exit: ')
         if len(done) > 0:
             sys.exit(0)
     except:
@@ -71,12 +71,12 @@ def delete_the_files_verbose():
 
 
 def delete_the_files_quick():
-    print "Please wait. Operation in progress."
+    print 'Please wait. Operation in progress.'
     shutil.rmtree(tempfolder, ignore_errors=True)
     subprocess.check_call
     (['c:\windows\system32\cleanmgr.exe', '/autoclean /s /d C:'])
     try:
-        done = raw_input("\nOperation complete. Press enter to exit: ")
+        done = raw_input('\nOperation complete. Press enter to exit: ')
         if len(done) > 0:
             sys.exit(0)
     except:
@@ -87,16 +87,16 @@ def delete_the_files_quick():
 
 if verbose is True:
     if user_input() == True:
-        print "Now removing temp files at: %s." % (tempfolder)
+        print 'Now removing temp files at: %s.' % (tempfolder)
         # Print file list to console because verbose mode is enabled.
         print os.listdir(tempfolder)
         delete_the_files_verbose()
     # Print message if user declines to continue then exit.
     elif user_input() == False:
-        print "Operation aborted. No files have been modified."
+        print 'Operation aborted. No files have been modified.'
         time.sleep(1)
         try:
-            done = raw_input("Press enter to exit")
+            done = raw_input('Press enter to exit')
             sys.exit(0)
         except SyntaxError:
             # Suppress the exception when a user hits enter.
