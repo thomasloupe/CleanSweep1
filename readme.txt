@@ -1,5 +1,7 @@
 CleanSweep - Thomas Loupe - 2016
 
+# Please Note: This repository is read-only as an updated version of CleanSweep has been released at https://github.com/thomasloupe/CleanSweep.
+
 CleanSweep is a lightweight python script that removes temp files from a Windows machine. It's extremely fast and efficient.
 
 There are two modes you can run CleanSweep in:
